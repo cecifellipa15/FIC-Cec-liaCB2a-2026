@@ -1,49 +1,61 @@
 let pessoas = []
 
-function adicionar () {
+function adicionar() {
+
 let nome = document.getElementById("nome").value
 let idade = Number(document.getElementById("idade").value)
 
 
-if (nome=="" || idade <= 0){
-
-    alert("Por favor, preencha todos os campos corretamente.")
-    return;
+if (nome == "" || idade <=0){
+    
+alert("Por favor preencha todos os campos corretamente")
+return
 }
 
-if (idade < 16){
-alert("Essa pessoa ainda não está apta para votar.")
-return}
+console.log(nome)
 
-pessoas.push({nome: nome, idade: idade});
+pessoas.push({nome: nome, idade: idade})
 
+let item = document.createElement("li")
+item.innerHTML = nome + " - " + idade + " anos"
 
+document.getElementById("lista").appendChild(item)
 
-let item = document.createElement("li");
-item.innerHTML =  nome + " - " + idade + " anos"
-document.getElementById("lista").appendChild(item);
-
-document.getElementById("nome").value = ""
-document.getElementById("idade").value = ""
+document.getElementById('nome').value = ""
+document.getElementById('idade').value = ""
 }
+
 
 function analisar() {
-if (pessoas.length === 0){
-alert("Nenhuma pessoa cadastrada!")
-return;}
+    
+    if (pessoas.length === 0){
+        alert("Não há pessoas cadastradas para análise.")
+        return
+    }
+
+let resultado = ""
+for (let i = 0; i < pessoas.length; i++){
+
+    let nome = pessoas[i].nome
+let idade = pessoas[i].idade
+
+if (idade < 16){
+resultado += nome + " - Não pode votar <br>"
 }
 
-let aptos = []
+else if (idade < 18 || idade >= 70){
+resultado += nome + " - Voto facultativo <br>"}
 
-for  (let i = 0; i < pessoas.length; i++)
-{
-if (pessoas[i].idade >= 16){
-    aptos.push(pessoas[i].nome)
-}
+else{
+resultado += nome + " - Voto obrigatório <br>"}
 
 }
+    
 
-alert("Pessoa aptas para votar:" + aptos.join(" , "))
+document.getElementById("resultado").innerHTML = resultado
+}
+
+
 
 
 
